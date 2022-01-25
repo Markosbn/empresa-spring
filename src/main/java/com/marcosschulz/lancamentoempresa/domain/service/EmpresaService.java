@@ -70,4 +70,10 @@ public class EmpresaService {
         List<Empresa> empresaList = empresaRepository.findByRazaoSocialContaining(razaoSocialParcial);
         return empresaList;
     }
+
+    @Transactional
+    public List<Empresa> buscaPorCNPJParcial(String cnpjBusca){
+        List<Empresa> empresaList = empresaRepository.findByCnpjContaining(cnpjBusca);
+        return empresaList;
+    }
 }

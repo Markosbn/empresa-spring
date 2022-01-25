@@ -39,6 +39,12 @@ public class EmpresaResource {
         return ResponseEntity.ok(empresaList);
     }
 
+    @GetMapping("/cnpjBusca")
+    public ResponseEntity<List<Empresa>> buscaCNPJParcial(@RequestParam String cnpjBusca){
+        List<Empresa> empresaList = empresaService.buscaPorCNPJParcial(cnpjBusca);
+        return ResponseEntity.ok(empresaList);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Empresa insereEmpresa(@RequestBody Empresa empresa){
