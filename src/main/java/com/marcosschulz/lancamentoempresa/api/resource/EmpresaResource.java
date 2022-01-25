@@ -27,15 +27,15 @@ public class EmpresaResource {
         return ResponseEntity.ok(empresaService.buscaPorId(empresaId));
     }
 
-    @GetMapping("/razaoSocial")
-    public ResponseEntity<List<Empresa>> buscaRazao(@RequestParam String razaoSocial){
-        List<Empresa> empresaList = empresaService.buscaPorRazaoSocial(razaoSocial);
+    @GetMapping("/razao")
+    public ResponseEntity<List<Empresa>> buscaRazao(@RequestParam String razao){
+        List<Empresa> empresaList = empresaService.buscaPorRazaoSocial(razao);
         return ResponseEntity.ok(empresaList);
     }
 
-    @GetMapping("/razaoSocialParcial")
-    public ResponseEntity<List<Empresa>> buscaRazaoParcial(@RequestParam String razaoSocialParcial){
-        List<Empresa> empresaList = empresaService.buscaPorRazaoSocialParcial(razaoSocialParcial);
+    @GetMapping("/razaoParcial")
+    public ResponseEntity<List<Empresa>> buscaRazaoParcial(@RequestParam String razaoParcial){
+        List<Empresa> empresaList = empresaService.buscaPorRazaoSocialParcial(razaoParcial);
         return ResponseEntity.ok(empresaList);
     }
 
@@ -45,12 +45,12 @@ public class EmpresaResource {
         return empresaService.insertEmpresa(empresa);
     }
 
-    @PutMapping("/{}")
+    @PutMapping("/{id}")
     public ResponseEntity<Empresa> alteraEmpresa(@RequestBody Empresa empresa, @PathVariable Long id){
         return ResponseEntity.ok(empresaService.updateEmpresa(id, empresa));
     }
 
-    @DeleteMapping("/{}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletaEmpresa(@PathVariable Long id){
         empresaService.deleteEmpresa(id);
         return ResponseEntity.noContent().build();
