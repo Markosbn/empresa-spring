@@ -1,5 +1,6 @@
 package com.marcosschulz.lancamentoempresa.domain.service;
 
+import com.marcosschulz.lancamentoempresa.domain.exception.EntitiesException;
 import com.marcosschulz.lancamentoempresa.domain.model.Empresa;
 import com.marcosschulz.lancamentoempresa.domain.repository.EmpresaRepository;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,12 @@ public class EmpresaService {
 
     @Transactional//inserção
     public Empresa insertEmpresa(Empresa empresa){
+
+        boolean cnpjEmUso = empresaRepository.findByCnpj(empresa.getCnpj())
+                .stream().anyMatch(emp -> !emp.equals(empresa));
+        if (cnpjEmUso){
+            throw new EntitiesException("Ja existe cliente cadastrado com este CNPJ!");
+        }
         Empresa novaEmpresa = new Empresa();
 
         novaEmpresa.setId(empresa.getId());

@@ -12,5 +12,5 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
     List<Empresa> findByRazaoSocial(String razaoSocial);
     List<Empresa> findByRazaoSocialContaining(String razaoSocial);
     List<Empresa> findByCnpjContaining(String cnpjBusca);
-
+    List<Empresa> findByCnpj(String cnpjBusca);
 }

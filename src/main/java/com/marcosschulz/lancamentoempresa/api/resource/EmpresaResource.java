@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -61,7 +61,7 @@ public class EmpresaResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Empresa insereEmpresa(@RequestBody Empresa empresa){
+    public Empresa insereEmpresa(@Valid @RequestBody Empresa empresa){
         return empresaService.insertEmpresa(empresa);
     }
 
