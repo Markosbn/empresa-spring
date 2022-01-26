@@ -55,7 +55,7 @@ public class EmpresaService {
     @Transactional//update
     public Empresa updateEmpresa(Long id, Empresa empresa){
         empresa.setId(id);
-        empresa = empresaRepository.save(empresa);
+        empresa = insertEmpresa(empresa);
         return empresa;
     }
 
