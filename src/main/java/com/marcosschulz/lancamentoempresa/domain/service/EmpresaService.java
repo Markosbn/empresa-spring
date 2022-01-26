@@ -3,11 +3,13 @@ package com.marcosschulz.lancamentoempresa.domain.service;
 import com.marcosschulz.lancamentoempresa.domain.model.Empresa;
 import com.marcosschulz.lancamentoempresa.domain.repository.EmpresaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -57,6 +59,10 @@ public class EmpresaService {
 
     @Transactional
     public Empresa buscaPorId(Long id){
+        Optional<Empresa> empresa = empresaRepository.findById(id);
+        if (empresa.isEmpty()){
+            return null;
+        }
         return empresaRepository.findById(id).get();
     }
 

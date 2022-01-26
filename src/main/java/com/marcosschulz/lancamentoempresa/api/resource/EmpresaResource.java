@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -24,24 +25,37 @@ public class EmpresaResource {
 
     @GetMapping("/{empresaId}")
     public ResponseEntity<Empresa> buscaPorId(@PathVariable Long empresaId){
-        return ResponseEntity.ok(empresaService.buscaPorId(empresaId));
+        var empresa = empresaService.buscaPorId(empresaId);
+        if (empresa == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(empresa);
     }
 
     @GetMapping("/razao")
     public ResponseEntity<List<Empresa>> buscaRazao(@RequestParam String razao){
         List<Empresa> empresaList = empresaService.buscaPorRazaoSocial(razao);
+        if (empresaList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(empresaList);
     }
 
     @GetMapping("/razaoParcial")
     public ResponseEntity<List<Empresa>> buscaRazaoParcial(@RequestParam String razaoParcial){
         List<Empresa> empresaList = empresaService.buscaPorRazaoSocialParcial(razaoParcial);
+        if (empresaList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(empresaList);
     }
 
     @GetMapping("/cnpjBusca")
     public ResponseEntity<List<Empresa>> buscaCNPJParcial(@RequestParam String cnpjBusca){
         List<Empresa> empresaList = empresaService.buscaPorCNPJParcial(cnpjBusca);
+        if (empresaList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(empresaList);
     }
 
