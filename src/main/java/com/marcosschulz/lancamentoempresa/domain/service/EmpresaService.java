@@ -54,6 +54,9 @@ public class EmpresaService {
 
     @Transactional//update
     public Empresa updateEmpresa(Long id, Empresa empresa){
+        if (!empresaRepository.existsById(id)){
+            return null;
+        }
         empresa.setId(id);
         empresa = insertEmpresa(empresa);
         return empresa;

@@ -27,7 +27,7 @@ public class EmpresaResource {
     public ResponseEntity<Empresa> buscaPorId(@PathVariable Long empresaId){
         var empresa = empresaService.buscaPorId(empresaId);
         if (empresa == null){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(empresa);
     }
@@ -36,7 +36,7 @@ public class EmpresaResource {
     public ResponseEntity<List<Empresa>> buscaRazao(@RequestParam String razao){
         List<Empresa> empresaList = empresaService.buscaPorRazaoSocial(razao);
         if (empresaList.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(empresaList);
     }
@@ -45,7 +45,7 @@ public class EmpresaResource {
     public ResponseEntity<List<Empresa>> buscaRazaoParcial(@RequestParam String razaoParcial){
         List<Empresa> empresaList = empresaService.buscaPorRazaoSocialParcial(razaoParcial);
         if (empresaList.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(empresaList);
     }
@@ -54,7 +54,7 @@ public class EmpresaResource {
     public ResponseEntity<List<Empresa>> buscaCNPJParcial(@RequestParam String cnpjBusca){
         List<Empresa> empresaList = empresaService.buscaPorCNPJParcial(cnpjBusca);
         if (empresaList.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(empresaList);
     }
@@ -67,7 +67,11 @@ public class EmpresaResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<Empresa> alteraEmpresa(@RequestBody Empresa empresa, @PathVariable Long id){
-        return ResponseEntity.ok(empresaService.updateEmpresa(id, empresa));
+        Empresa atualizaEmpresa = empresaService.updateEmpresa(id, empresa);
+        if (atualizaEmpresa == null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(atualizaEmpresa);
     }
 
     @DeleteMapping("/{id}")
