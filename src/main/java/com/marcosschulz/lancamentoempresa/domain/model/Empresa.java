@@ -52,16 +52,20 @@ public class Empresa {
     @Column(name = "telefone")
     private String fone;
 
+    @NotBlank
     @Size(max = 200)
     private String logradouro;
 
+    @NotBlank
     @Size(max = 100)
     private String cidade;
 
+    @NotBlank
     @Size(max = 2)
     @Column(name = "estado")
     private String uf;
 
+    @NotBlank
     @Size(max = 100)
     private String bairro;
     private Integer numero;
