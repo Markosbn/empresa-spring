@@ -1,5 +1,6 @@
 package com.marcosschulz.lancamentoempresa.api.exceptionhandler;
 
+import com.marcosschulz.lancamentoempresa.domain.exception.EntitiesException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -34,4 +36,17 @@ public class EmpresaExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(ex, erroApi, headers, status, request );
     }
+
+    @ExceptionHandler(EntitiesException.class)
+    public ResponseEntity<Object>  handleEmpresaException(EntitiesException ex, WebRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        EmpresaTreatment erroApi = new EmpresaTreatment();
+        erroApi.setTituloErro(ex.getMessage());
+        erroApi.setDataHoraErro(LocalDateTime.now());
+        erroApi.setStatus(status.value());
+
+        return handleExceptionInternal(ex, erroApi, new HttpHeaders(), status, request);
+    }
+
 }
