@@ -66,12 +66,12 @@ public class EmpresaResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Empresa> alteraEmpresa(@RequestBody Empresa empresa, @PathVariable Long id){
+    public ResponseEntity<Empresa> alteraEmpresa(@Valid @RequestBody Empresa empresa, @PathVariable Long id){
         Empresa atualizaEmpresa = empresaService.updateEmpresa(id, empresa);
         if (atualizaEmpresa == null){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(atualizaEmpresa);
+        return ResponseEntity.ok(empresaService.updateEmpresa(id, empresa));
     }
 
     @DeleteMapping("/{id}")
